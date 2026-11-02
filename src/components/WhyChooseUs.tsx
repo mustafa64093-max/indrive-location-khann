@@ -23,11 +23,11 @@ export const WhyChooseUs: React.FC = () => {
   };
 
   return (
-    <section id="why-us" className="py-20 lg:py-24 bg-[#0a0f1d] text-white scroll-mt-12 border-y border-slate-800">
+    <section id="why-us" className="py-14 sm:py-20 lg:py-24 bg-[#0a0f1d] text-white scroll-mt-12 border-y border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <span className="text-xs sm:text-sm font-extrabold tracking-widest text-amber-400 uppercase">
             WHY CHOOSE US
           </span>

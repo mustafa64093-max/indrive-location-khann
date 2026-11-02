@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Clock, Navigation, ArrowRight, ImageIcon, ExternalLink, Mail, Footprints } from 'lucide-react';
+import { MapPin, Phone, Clock, Navigation, ArrowRight, ImageIcon, ExternalLink, Mail, Footprints, MessageSquare, Sparkles } from 'lucide-react';
 import { Office } from '../types';
 
 interface OfficeLocationsProps {
@@ -20,30 +20,44 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
   };
 
   return (
-    <section id="locations" className="py-20 lg:py-24 bg-[#f8fafc] text-slate-900 scroll-mt-12">
+    <section id="locations" className="py-14 sm:py-20 lg:py-24 bg-[#f8fafc] text-slate-900 scroll-mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <span className="text-xs sm:text-sm font-extrabold tracking-widest text-amber-600 uppercase">
             FIND US
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mt-2 mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mt-2 mb-3 sm:mb-4">
             Our Office Locations
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed px-2">
             Three strategically located offices to serve drivers across Islamabad and Rawalpindi.
           </p>
         </div>
 
         {/* 3 Office Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-14">
           {offices.map((office) => {
+            const isKhannaPul = office.id === 'khanna-pul';
+
             return (
               <div
                 key={office.id}
-                className="bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between"
+                className={`bg-white rounded-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between ${
+                  isKhannaPul
+                    ? 'border-2 border-amber-400 shadow-xl shadow-amber-500/10 ring-2 ring-amber-400/20 relative'
+                    : 'border border-slate-200/90 shadow-sm hover:shadow-lg'
+                }`}
               >
+                {/* Premium Banner on Khanna Pul */}
+                {isKhannaPul && (
+                  <div className="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 px-4 py-1.5 text-center text-[10px] sm:text-xs font-black tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-sm">
+                    <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
+                    <span>Official Head Office & Registration Center</span>
+                  </div>
+                )}
+
                 <div>
                   {/* Map Header Card */}
                   <div className="relative h-44 bg-slate-200 overflow-hidden border-b border-slate-200">
@@ -67,10 +81,10 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
 
                       {/* Central Pin */}
                       <div className="relative z-10 self-center my-auto flex flex-col items-center">
-                        <div className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg ring-4 ring-white animate-pulse">
-                          <MapPin className="w-4 h-4 fill-white text-red-600" />
+                        <div className="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg ring-4 ring-white animate-pulse">
+                          <MapPin className="w-5 h-5 fill-white text-red-600" />
                         </div>
-                        <span className="mt-1 text-[10px] font-bold bg-white/90 text-slate-800 px-2 py-0.5 rounded shadow-xs">
+                        <span className="mt-1 text-[10px] font-bold bg-white/95 text-slate-900 px-2.5 py-0.5 rounded shadow-sm">
                           {office.area}
                         </span>
                       </div>
@@ -80,22 +94,22 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
                         <span>Keyboard shortcuts</span>
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-slate-700">Google</span>
-                          <span>Report a map error</span>
+                          <span>Report error</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Office Info Body */}
-                  <div className="p-6">
+                  <div className="p-5 sm:p-6">
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <h3 className="text-xl font-bold text-slate-900 flex items-start gap-2">
+                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 flex items-start gap-2">
                         <MapPin className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                         <span>{office.name}</span>
                       </h3>
-                      {office.id === 'khanna-pul' && (
-                        <span className="text-[10px] uppercase font-extrabold tracking-wider px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shrink-0 shadow-xs">
-                          Main Office
+                      {isKhannaPul && (
+                        <span className="text-[10px] uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 shrink-0 shadow-xs">
+                          Main Branch
                         </span>
                       )}
                     </div>
@@ -104,14 +118,29 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
                       {office.fullAddress}
                     </p>
 
-                    <div className="space-y-2 mb-6 pl-7 text-xs sm:text-sm">
-                      <a
-                        href={`tel:${office.phone.replace(/\s+/g, '')}`}
-                        className="flex items-center gap-2 font-semibold text-slate-800 hover:text-amber-600 transition-colors"
-                      >
-                        <Phone className="w-4 h-4 text-amber-500" />
-                        <span>{office.phone}</span>
-                      </a>
+                    <div className="space-y-2.5 mb-6 pl-7 text-xs sm:text-sm">
+                      <div className="flex items-center justify-between pr-2">
+                        <a
+                          href={`tel:${office.phone.replace(/\s+/g, '')}`}
+                          className="flex items-center gap-2 font-bold text-slate-900 hover:text-amber-600 transition-colors"
+                        >
+                          <Phone className="w-4 h-4 text-amber-500" />
+                          <span>{office.phone}</span>
+                        </a>
+
+                        <a
+                          href={`https://wa.me/${office.whatsapp}?text=${encodeURIComponent(
+                            `Hello, I want to inquire about inDrive registration at ${office.name}.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-colors"
+                          title="Chat on WhatsApp"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+
                       <div className="flex items-center gap-2 text-slate-500">
                         <Clock className="w-4 h-4 text-slate-400" />
                         <span>{office.hours}</span>
@@ -120,13 +149,18 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
 
                     {/* Gallery Subsection */}
                     <div className="pt-4 border-t border-slate-100">
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                        <ImageIcon className="w-3.5 h-3.5" />
-                        <span>OFFICE GALLERY</span>
+                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5">
+                          <ImageIcon className="w-3.5 h-3.5" />
+                          <span>OFFICE GALLERY</span>
+                        </span>
+                        {office.gallery && office.gallery.length > 0 && (
+                          <span className="text-[10px] text-amber-600 font-semibold">Tap photo to zoom</span>
+                        )}
                       </div>
 
                       {office.gallery && office.gallery.length > 0 ? (
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div className="grid grid-cols-4 gap-2">
                           {office.gallery.map((img) => (
                             <button
                               key={img.id}
@@ -146,10 +180,10 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
                           ))}
                         </div>
                       ) : (
-                        <div className="bg-slate-50 rounded-xl border border-dashed border-slate-200 py-7 px-4 text-center">
-                          <ImageIcon className="w-6 h-6 text-slate-400 mx-auto mb-1.5 opacity-60" />
+                        <div className="bg-slate-50 rounded-xl border border-dashed border-slate-200 py-6 px-4 text-center">
+                          <ImageIcon className="w-6 h-6 text-slate-400 mx-auto mb-1 opacity-60" />
                           <p className="text-xs font-semibold text-slate-700">No photos yet</p>
-                          <p className="text-[11px] text-slate-400 mt-0.5">
+                          <p className="text-[10px] text-slate-400 mt-0.5">
                             Photos of {office.name} will appear here
                           </p>
                         </div>
@@ -158,24 +192,24 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
                   </div>
                 </div>
 
-                {/* Bottom Actions */}
-                <div className="p-6 pt-0 grid grid-cols-2 gap-3 mt-4">
+                {/* Bottom Actions with Mobile Tap Targets >= 44px */}
+                <div className="p-5 sm:p-6 pt-0 grid grid-cols-2 gap-3 mt-4">
                   <a
                     href={getGoogleMapsUrl(office)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 px-3 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                    className="min-h-[44px] py-2.5 px-3 text-xs sm:text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 active:scale-98 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-xs"
                   >
-                    <Navigation className="w-3.5 h-3.5 text-amber-400" />
+                    <Navigation className="w-4 h-4 text-amber-400" />
                     <span>Directions</span>
                   </a>
 
                   <button
                     onClick={() => onSelectOffice(office)}
-                    className="py-2.5 px-3 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-lg flex items-center justify-center gap-1 transition-colors shadow-xs"
+                    className="min-h-[44px] py-2.5 px-3 text-xs sm:text-sm font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 active:scale-98 rounded-xl flex items-center justify-center gap-1 transition-all shadow-xs"
                   >
                     <span>View Details</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -184,18 +218,18 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
         </div>
 
         {/* Bottom Banner Strip: Office Hours, Walk-in, Email */}
-        <div className="bg-[#0b1220] text-white rounded-2xl p-6 sm:p-7 shadow-lg border border-slate-800">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-800">
+        <div className="bg-[#0b1220] text-white rounded-2xl p-5 sm:p-7 shadow-lg border border-slate-800">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-800">
             {/* Hours */}
-            <div className="flex items-center justify-center md:justify-start gap-3.5 pt-4 md:pt-0 md:pr-4">
+            <div className="flex items-center justify-center md:justify-start gap-3.5 pt-3 md:pt-0 md:pr-4">
               <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center shrink-0">
                 <Clock className="w-5 h-5 text-amber-400" />
               </div>
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   Office Hours
                 </div>
-                <div className="text-sm font-semibold text-white mt-0.5">
+                <div className="text-xs sm:text-sm font-semibold text-white mt-0.5">
                   Monday – Saturday: 9:00 AM – 6:00 PM
                 </div>
               </div>
@@ -207,10 +241,10 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
                 <Footprints className="w-5 h-5 text-amber-400" />
               </div>
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   Walk-In Welcome
                 </div>
-                <div className="text-sm font-semibold text-white mt-0.5">
+                <div className="text-xs sm:text-sm font-semibold text-white mt-0.5">
                   No appointment needed
                 </div>
               </div>
@@ -222,12 +256,12 @@ export const OfficeLocations: React.FC<OfficeLocationsProps> = ({
                 <Mail className="w-5 h-5 text-amber-400" />
               </div>
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   Email Us
                 </div>
                 <a
                   href="mailto:info@cabservicehub.com"
-                  className="text-sm font-semibold text-amber-400 hover:underline mt-0.5 block"
+                  className="text-xs sm:text-sm font-semibold text-amber-400 hover:underline mt-0.5 block"
                 >
                   info@cabservicehub.com
                 </a>

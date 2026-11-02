@@ -99,7 +99,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#090e1a] text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen flex flex-col bg-[#090e1a] text-slate-100 font-sans selection:bg-amber-400 selection:text-black pb-16 sm:pb-0">
       {/* Navigation */}
       <Navbar
         onOpenCallModal={() => setIsCallModalOpen(true)}
@@ -143,11 +143,11 @@ export default function App() {
         onSelectService={handleSelectService}
       />
 
-      {/* Floating Action Button for Driver WhatsApp */}
-      <div className="fixed bottom-6 right-6 z-30 flex flex-col gap-3">
+      {/* Desktop/Tablet Floating Action Buttons */}
+      <div className="hidden sm:flex fixed bottom-6 right-6 z-30 flex-col gap-3">
         <button
           onClick={() => setIsCallModalOpen(true)}
-          className="w-12 h-12 rounded-full bg-slate-900 border border-slate-700 text-amber-400 shadow-xl flex items-center justify-center hover:scale-105 transition-transform"
+          className="w-13 h-13 rounded-full bg-slate-900 border border-slate-700 text-amber-400 shadow-xl shadow-black/40 flex items-center justify-center hover:scale-105 transition-transform"
           title="Call office"
         >
           <Phone className="w-5 h-5" />
@@ -157,10 +157,31 @@ export default function App() {
           href="https://wa.me/923334447112?text=Hello%20inDrive%20Registration%20Office%20Khanna%20Pul,%20I%20want%20to%20register%20as%20a%20driver."
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-xl shadow-emerald-500/25 flex items-center justify-center hover:scale-105 transition-transform"
+          className="w-13 h-13 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-xl shadow-emerald-500/25 flex items-center justify-center hover:scale-105 transition-transform"
           title="Chat on WhatsApp"
         >
           <MessageSquare className="w-6 h-6" />
+        </a>
+      </div>
+
+      {/* Mobile Sticky Quick Action Bar (Finger Friendly <= 10% viewport height) */}
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-[#070b14]/95 backdrop-blur-md border-t border-slate-800 p-2.5 px-3 flex items-center gap-2 shadow-2xl">
+        <a
+          href="tel:+923334447112"
+          className="flex-1 min-h-[46px] py-2.5 px-3 bg-slate-900 border border-slate-700 active:bg-slate-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-sm active:scale-98"
+        >
+          <Phone className="w-4 h-4 text-amber-400" />
+          <span>Call Khanna Pul</span>
+        </a>
+
+        <a
+          href="https://wa.me/923334447112?text=Hello%20inDrive%20Registration%20Office%20Khanna%20Pul,%20I%20want%20to%20register%20as%20a%20driver."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 min-h-[46px] py-2.5 px-3 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-sm active:scale-98"
+        >
+          <MessageSquare className="w-4 h-4" />
+          <span>WhatsApp Chat</span>
         </a>
       </div>
 
